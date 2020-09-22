@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using Messages;
 using Messages.Client;
+using Messages.Server;
+using Server.Exceptions;
 using Utils;
 
 namespace Server
 {
     public sealed class Root
     {
+        private static IDatabaseProvider _sqLiteDataBaseProvider;
+
+        public Root()
+        {
+            _sqLiteDataBaseProvider = new SqLiteDataBaseProvider(new SessionKeyManager());
+        }
+
         static void Main(string[] args)
         {
             IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 33333);
 
             Socket listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            
+            
             try
             {
                 listenSocket.Bind(ipPoint);
@@ -33,23 +44,52 @@ namespace Server
                     while (connection.Available>0);
 
                     var deCompressData = ByteCompressor.DeCompress(data);
-                    var deSerializedData = Utils.Serializer.DeSerialize(data);
-                    switch (deSerializedData)
+                    var deSerializedData = Utils.Serializer.DeSerialize(deCompressData);
+                    Message returnMessage = default;
+                    try
                     {
-                        case AuthorizeMessage authorizeMessage:
-                            break;
-                        case GetListOfConfigByPeriodMessage getListOfConfigByPeriodMessage:
-                            break;
-                        case LogOutMessage logOutMessage:
-                            break;
-                        case SaveConfigMessage saveConfigMessage:
-                            break;
-                        case SIgnInMessage sIgnInMessage:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(deSerializedData));
+                        switch (deSerializedData)
+                        {
+                            case RegistrationMessage registrationMessage:
+                                try
+                                {
+                                    _sqLiteDataBaseProvider.Registration(registrationMessage.Login);
+                                    returnMessage = new SuccessfulMessage();
+                                }
+                                catch (ExistingUserException e)
+                                {
+                                    returnMessage = new ErrorMessage() {Error = "User already exist"};
+                                }
+                                break;
+                            case GetListOfConfigByPeriodMessage getListOfConfigByPeriodMessage:
+                                var configs = _sqLiteDataBaseProvider.GetListOfConfig(getListOfConfigByPeriodMessage.SessionKey,
+                                    getListOfConfigByPeriodMessage.From, getListOfConfigByPeriodMessage.To);
+                                returnMessage = new ConfigListMessage(){Configs=configs};
+                                break;
+                            case LogOutMessage logOutMessage:
+                                _sqLiteDataBaseProvider.LogOut(logOutMessage.SessionKey);
+                                break;
+                            case SaveConfigMessage saveConfigMessage:
+                                _sqLiteDataBaseProvider.SaveConfig(saveConfigMessage.SessionKey,
+                                    saveConfigMessage.Config);
+                                break;
+                            case SIgnInMessage signInMessage:
+                                _sqLiteDataBaseProvider.SignIn(signInMessage.Login);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(deSerializedData));
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        returnMessage = new ErrorMessage(){Error = e.ToString()};
+                    }
+                    if(returnMessage==default) throw new Exception();
 
+                    var serializedMessage = Serializer.Serialize(returnMessage);
+                    var compressMessage = ByteCompressor.Compress(serializedMessage);
+
+                    connection.Send(compressMessage);
 
                     connection.Shutdown(SocketShutdown.Both);
                     connection.Close();

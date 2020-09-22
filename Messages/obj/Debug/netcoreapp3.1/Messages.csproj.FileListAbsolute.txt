@@ -1,0 +1,8 @@
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.deps.json
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.dll
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.pdb
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.csprojAssemblyReference.cache
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.AssemblyInfoInputs.cache
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.AssemblyInfo.cs
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.dll
+C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.pdb
