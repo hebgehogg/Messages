@@ -56,7 +56,7 @@ namespace Server
                                     _sqLiteDataBaseProvider.Registration(registrationMessage.Login);
                                     returnMessage = new SuccessfulMessage();
                                 }
-                                catch (ExistingUserException e)
+                                catch (ExistingUserException)
                                 {
                                     returnMessage = new ErrorMessage() {Error = "User already exist"};
                                 }
@@ -67,14 +67,31 @@ namespace Server
                                 returnMessage = new ConfigListMessage(){Configs=configs};
                                 break;
                             case LogOutMessage logOutMessage:
-                                _sqLiteDataBaseProvider.LogOut(logOutMessage.SessionKey);
+                                var logOut = _sqLiteDataBaseProvider.LogOut(logOutMessage.SessionKey);
+                                if(logOut)
+                                    returnMessage = new SuccessfulMessage();
+                                else
+                                    returnMessage = new ErrorMessage();
                                 break;
                             case SaveConfigMessage saveConfigMessage:
-                                _sqLiteDataBaseProvider.SaveConfig(saveConfigMessage.SessionKey,
+                                var saveConfig = _sqLiteDataBaseProvider.SaveConfig(saveConfigMessage.SessionKey,
                                     saveConfigMessage.Config);
+                                if(saveConfig)
+                                    returnMessage = new SuccessfulMessage();
+                                else
+                                    returnMessage = new ErrorMessage();
                                 break;
                             case SIgnInMessage signInMessage:
-                                _sqLiteDataBaseProvider.SignIn(signInMessage.Login);
+                                
+                                var sessionKey =_sqLiteDataBaseProvider.SignIn(signInMessage.Login);
+                                try
+                                {
+                                    returnMessage = new SessionKeyMessage() {SessionKey = sessionKey};
+                                }
+                                catch (NonExistExceptions)
+                                {
+                                    returnMessage = new ErrorMessage() {Error = "User don`t exist"};
+                                }
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException(nameof(deSerializedData));

@@ -27,10 +27,17 @@ namespace Server
         public bool SaveConfig(string sessionKey, HardwareConfig config)
         {
             var cmd = _sqLiteConnection.CreateCommand();
-
-            var userID = $"SELECT UserID FROM Users WHERE login = '{_sessionKeyManager.GetLoginBySessionKey(sessionKey)}'";
-            cmd.CommandText = userID;
-            cmd.ExecuteNonQuery();
+            string userID = default;
+            try
+            {
+                userID = $"SELECT UserID FROM Users WHERE login = '{_sessionKeyManager.GetLoginBySessionKey(sessionKey)}'";
+                cmd.CommandText = userID;
+                cmd.ExecuteNonQuery();
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
             
             var existUser = $"INSERT INTO Configs VALUES(null,'{config.CpuCoreCount}', '{config.ClockFrequency}', '{config.RandomAccessMemory}','{config.DiskSpace}, '{userID}', '{DateTime.Now}')";
             cmd.CommandText = existUser;
@@ -41,7 +48,17 @@ namespace Server
         public HardwareConfig[] GetListOfConfig(string sessionKey, DateTimeOffset from, DateTimeOffset to)
         {
             var cmd = _sqLiteConnection.CreateCommand();
-
+            string userID = default;
+            try
+            {
+                userID = $"SELECT UserID FROM Users WHERE login = '{_sessionKeyManager.GetLoginBySessionKey(sessionKey)}'";
+                cmd.CommandText = userID;
+                cmd.ExecuteNonQuery();
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
             var getHardwareConfigs = $"SELECT CpuCoreCont, ClockFrequency, RandomAccessMemory, DiskSpace FROM Configs WHERE ConfigData BETWEEN '{from}' AND '{to}'";
             cmd.CommandText = getHardwareConfigs;
             
@@ -91,20 +108,24 @@ namespace Server
             var cmd = _sqLiteConnection.CreateCommand();
             var existUser = $"SELECT Login FROM Users WHERE Login = {login}";
             cmd.CommandText = existUser;
-            cmd.ExecuteNonQuery();
-
-            if (existUser.Contains(login))
+            if (cmd.ExecuteScalar()==login)
                 return _sessionKeyManager.GenerateKey(login);
             else
-                return "Error";
+                throw new InvalidOperationException();
         }
 
         public bool LogOut(string sessionKey)
         {
             if (sessionKey == null) throw new ArgumentNullException(nameof(sessionKey));
-            
-            _sessionKeyManager.DeleteSessionKey(sessionKey);
-            return false;
+            try
+            {
+                _sessionKeyManager.DeleteSessionKey(sessionKey);
+                return false;
+            }
+            catch (InvalidOperationException)
+            {
+                return true;
+            }
         }
         
         public void Dispose()
