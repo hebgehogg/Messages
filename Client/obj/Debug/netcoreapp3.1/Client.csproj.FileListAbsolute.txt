@@ -1,0 +1,17 @@
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.exe
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.deps.json
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.runtimeconfig.json
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.runtimeconfig.dev.json
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.dll
+C:\Users\hebgehogg\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Client.pdb
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.csprojAssemblyReference.cache
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client_MarkupCompile.cache
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client_MarkupCompile.lref
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.g.resources
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfoInputs.cache
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfo.cs
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.dll
+C:\Users\hebgehogg\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\Client.pdb
