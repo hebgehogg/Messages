@@ -7,7 +7,7 @@ namespace Server
     {
         public bool SaveConfig(string sessionKey, HardwareConfig config);
         
-        public HardwareConfig[] GetListOfConfig(string sessionKey, DateTimeOffset from, DateTimeOffset to);
+        public HardwareConfig[] GetListOfConfig(string sessionKey, DateTime from, DateTime to);
         
         public void Registration(string login);
         

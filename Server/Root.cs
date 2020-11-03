@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Messages;
@@ -11,11 +13,11 @@ namespace Server
 {
     public sealed class Root
     {
-        private static IDatabaseProvider _sqLiteDataBaseProvider;
+        private static readonly IDatabaseProvider SqLiteDataBaseProvider;
 
-        public Root()
+        static Root()
         {
-            _sqLiteDataBaseProvider = new SqLiteDataBaseProvider(new SessionKeyManager());
+            SqLiteDataBaseProvider = new SqLiteDataBaseProvider(new SessionKeyManager());
         }
 
         static void Main(string[] args)
@@ -34,16 +36,18 @@ namespace Server
                 while (true)
                 {
                     Socket connection = listenSocket.Accept();
-                    int bytes = 0;
-                    byte[] data = new byte[256];
+                    List<byte> bytes = new List<byte>();
+                    byte[] buffer = new byte[256];
  
                     do
                     {
-                        bytes = connection.Receive(data);
+                        var countBytes = connection.Receive(buffer);
+                        var freeBytes = buffer.Take(countBytes);
+                        bytes.AddRange(freeBytes);
                     }
                     while (connection.Available>0);
 
-                    var deCompressData = ByteCompressor.DeCompress(data);
+                    var deCompressData = ByteCompressor.DeCompress(bytes.ToArray());
                     var deSerializedData = Utils.Serializer.DeSerialize(deCompressData);
                     Message returnMessage = default;
                     try
@@ -51,9 +55,10 @@ namespace Server
                         switch (deSerializedData)
                         {
                             case RegistrationMessage registrationMessage:
+                                Console.WriteLine(registrationMessage.ToString() + DateTime.Now);
                                 try
                                 {
-                                    _sqLiteDataBaseProvider.Registration(registrationMessage.Login);
+                                    SqLiteDataBaseProvider.Registration(registrationMessage.Login);
                                     returnMessage = new SuccessfulMessage();
                                 }
                                 catch (ExistingUserException)
@@ -62,19 +67,22 @@ namespace Server
                                 }
                                 break;
                             case GetListOfConfigByPeriodMessage getListOfConfigByPeriodMessage:
-                                var configs = _sqLiteDataBaseProvider.GetListOfConfig(getListOfConfigByPeriodMessage.SessionKey,
+                                Console.WriteLine(getListOfConfigByPeriodMessage.ToString() + DateTime.Now);
+                                var configs = SqLiteDataBaseProvider.GetListOfConfig(getListOfConfigByPeriodMessage.SessionKey,
                                     getListOfConfigByPeriodMessage.From, getListOfConfigByPeriodMessage.To);
                                 returnMessage = new ConfigListMessage(){Configs=configs};
                                 break;
                             case LogOutMessage logOutMessage:
-                                var logOut = _sqLiteDataBaseProvider.LogOut(logOutMessage.SessionKey);
+                                Console.WriteLine(logOutMessage.ToString() + DateTime.Now);
+                                var logOut = SqLiteDataBaseProvider.LogOut(logOutMessage.SessionKey);
                                 if(logOut)
                                     returnMessage = new SuccessfulMessage();
                                 else
                                     returnMessage = new ErrorMessage();
                                 break;
                             case SaveConfigMessage saveConfigMessage:
-                                var saveConfig = _sqLiteDataBaseProvider.SaveConfig(saveConfigMessage.SessionKey,
+                                Console.WriteLine(saveConfigMessage.ToString() + DateTime.Now);
+                                var saveConfig = SqLiteDataBaseProvider.SaveConfig(saveConfigMessage.SessionKey,
                                     saveConfigMessage.Config);
                                 if(saveConfig)
                                     returnMessage = new SuccessfulMessage();
@@ -82,8 +90,8 @@ namespace Server
                                     returnMessage = new ErrorMessage();
                                 break;
                             case SIgnInMessage signInMessage:
-                                
-                                var sessionKey =_sqLiteDataBaseProvider.SignIn(signInMessage.Login);
+                                Console.WriteLine(signInMessage.ToString() + DateTime.Now);
+                                var sessionKey =SqLiteDataBaseProvider.SignIn(signInMessage.Login);
                                 try
                                 {
                                     returnMessage = new SessionKeyMessage() {SessionKey = sessionKey};

@@ -7,7 +7,7 @@ namespace Utils
     {
         public static byte[] Compress(byte[] data)
         {
-            using (var ms = new MemoryStream(data))
+            /*using (var ms = new MemoryStream(data))
             {
                 GZipStream compressingStream = new GZipStream(ms,
                     CompressionMode.Compress);
@@ -19,13 +19,14 @@ namespace Utils
                 }
                 compressingStream.Close();
                 return ms.ToArray();
-            }
+            }*/
+            return data;
         }
         
 
         public static byte[] DeCompress(byte[] bytes)
         {
-            using (var ms = new MemoryStream(bytes))
+            /*using (var ms = new MemoryStream(bytes))
             {
 
                 GZipStream decompressingStream = new GZipStream(ms,
@@ -38,7 +39,8 @@ namespace Utils
 
                 decompressingStream.Close();
                 return ms.ToArray();
-            }
+            }*/
+            return bytes;
         }
     }
 }

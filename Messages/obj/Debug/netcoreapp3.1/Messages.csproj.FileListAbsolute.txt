@@ -6,3 +6,12 @@ C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messa
 C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.AssemblyInfo.cs
 C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.dll
 C:\Users\hebgehogg\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.pdb
+C:\Users\hebgehog\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.deps.json
+C:\Users\hebgehog\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.dll
+C:\Users\hebgehog\RiderProjects\Messages\Messages\bin\Debug\netcoreapp3.1\Messages.pdb
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.csprojAssemblyReference.cache
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.AssemblyInfoInputs.cache
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.AssemblyInfo.cs
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.csproj.CoreCompileInputs.cache
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.dll
+C:\Users\hebgehog\RiderProjects\Messages\Messages\obj\Debug\netcoreapp3.1\Messages.pdb

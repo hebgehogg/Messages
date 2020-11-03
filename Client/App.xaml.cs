@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Messages.Client;
 
 namespace Client
 {
@@ -13,5 +14,19 @@ namespace Client
     /// </summary>
     public partial class App : Application
     {
+        
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            try
+            {
+                Utils.Serializer.Serialize(new RegistrationMessage());
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
     }
 }

@@ -9,3 +9,15 @@ C:\Users\hebgehogg\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.As
 C:\Users\hebgehogg\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.csproj.CopyComplete
 C:\Users\hebgehogg\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.dll
 C:\Users\hebgehogg\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.pdb
+C:\Users\hebgehog\RiderProjects\Messages\Utils\bin\Debug\netcoreapp3.1\Utils.deps.json
+C:\Users\hebgehog\RiderProjects\Messages\Utils\bin\Debug\netcoreapp3.1\Utils.dll
+C:\Users\hebgehog\RiderProjects\Messages\Utils\bin\Debug\netcoreapp3.1\Utils.pdb
+C:\Users\hebgehog\RiderProjects\Messages\Utils\bin\Debug\netcoreapp3.1\Messages.dll
+C:\Users\hebgehog\RiderProjects\Messages\Utils\bin\Debug\netcoreapp3.1\Messages.pdb
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.csprojAssemblyReference.cache
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.AssemblyInfoInputs.cache
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.AssemblyInfo.cs
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.csproj.CoreCompileInputs.cache
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.csproj.CopyComplete
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.dll
+C:\Users\hebgehog\RiderProjects\Messages\Utils\obj\Debug\netcoreapp3.1\Utils.pdb

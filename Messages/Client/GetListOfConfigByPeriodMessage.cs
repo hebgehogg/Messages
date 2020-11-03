@@ -4,11 +4,11 @@ using ProtoBuf;
 namespace Messages.Client
 {
     [ProtoContract]
-    public sealed class GetListOfConfigByPeriodMessage: ClientMessage
+    public class GetListOfConfigByPeriodMessage: ClientMessage
     {
         [ProtoMember(1)]
-        public DateTimeOffset From { get; set; }
+        public DateTime From { get; set; }
         [ProtoMember(2)]
-        public DateTimeOffset To { get; set; }
+        public DateTime To { get; set; }
     }
 }

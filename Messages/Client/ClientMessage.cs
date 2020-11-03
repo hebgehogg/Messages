@@ -3,11 +3,11 @@
 namespace Messages.Client
 {
     [ProtoContract]
-    [ProtoInclude(1, typeof(SaveConfigMessage))]
-    [ProtoInclude(2, typeof(SIgnInMessage))]
-    [ProtoInclude(3, typeof(RegistrationMessage))]
-    [ProtoInclude(4, typeof(GetListOfConfigByPeriodMessage))]
-    [ProtoInclude(5, typeof(LogOutMessage))]
+    [ProtoInclude(3, typeof(SaveConfigMessage))]
+    [ProtoInclude(4, typeof(SIgnInMessage))]
+    [ProtoInclude(5, typeof(RegistrationMessage))]
+    [ProtoInclude(6, typeof(GetListOfConfigByPeriodMessage))]
+    [ProtoInclude(7, typeof(LogOutMessage))]
     public abstract class ClientMessage:Message
     {
         [ProtoMember(1)]

@@ -3,13 +3,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Client"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:client="clr-namespace:Client"
+        xmlns:converters="clr-namespace:Client.Converters"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="MainWindow"
+        Height="450"
+        Width="800"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid HorizontalAlignment="Center">
-        <Canvas x:Name = "Canvas1" Background="Lavender">
-            <Button Background="AliceBlue" Content="1" Canvas.Top="20" Canvas.Left="40" />
-            <Button Background="LightSkyBlue" Content="2" Canvas.Top="20" Canvas.Right="40"/>
-        </Canvas>
-    </Grid>
+        d:DataContext="{d:DesignInstance client:MainWindowViewModel}"
+        x:Name="Root">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+    </Window.Resources>
+
+    <materialDesign:DialogHost 
+        Identifier="1">
+        <Grid Background="Linen"
+              HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal"
+                        Height="50"
+                        Background="Orchid"
+                        VerticalAlignment="Top">
+                <Button x:Name="LogOut"
+                        Height="40"
+                        Width="40"
+                        Margin="5,0,0,0"
+                        Content="{materialDesign:PackIcon Kind=Logout}"
+                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding LogOutCommand, Mode=OneWay}" 
+                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
+                <Button x:Name="LogIn"
+                        Height="40"
+                        Width="40"
+                        Margin="5,0,0,0"
+                        Content="{materialDesign:PackIcon Kind=Login}"
+                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding LogInCommand, Mode=OneWay}" 
+                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
+                <Button x:Name="SignIn"
+                        Height="40"
+                        Width="40"
+                        Margin="5,0,0,0"
+                        Content="{materialDesign:PackIcon Kind=Register}"
+                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding SignInCommand, Mode=OneWay}" 
+                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
+            </StackPanel>
+        </Grid>
+    </materialDesign:DialogHost >
 </Window>

@@ -597,37 +597,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hebgehogg\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\hebgehog\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Utils\\Utils.csproj",
+      "projectUniqueName": "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Utils\\Utils.csproj",
       "projectName": "Utils",
-      "projectPath": "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Utils\\Utils.csproj",
-      "packagesPath": "C:\\Users\\hebgehogg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Utils\\obj\\",
+      "projectPath": "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Utils\\Utils.csproj",
+      "packagesPath": "C:\\Users\\hebgehog\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Utils\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\hebgehogg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\hebgehog\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Messages\\Messages.csproj": {
-              "projectPath": "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Messages\\Messages.csproj"
+            "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Messages\\Messages.csproj": {
+              "projectPath": "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Messages\\Messages.csproj"
             }
           }
         }
@@ -661,7 +655,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\hebgehog\\.dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

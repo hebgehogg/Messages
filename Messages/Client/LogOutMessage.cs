@@ -3,7 +3,7 @@
 namespace Messages.Client
 {
     [ProtoContract]
-    public sealed class LogOutMessage: ClientMessage
+    public class LogOutMessage: ClientMessage
     {
         [ProtoMember(1)]
         public string Login { get; set; }

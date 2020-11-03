@@ -4,7 +4,7 @@ using ProtoBuf;
 namespace Messages.Server
 {
     [ProtoContract]
-    public sealed class ConfigListMessage: ServerMessage
+    public class ConfigListMessage: ServerMessage
     {
         [ProtoMember(1)]
         public HardwareConfig[] Configs { get; set; }

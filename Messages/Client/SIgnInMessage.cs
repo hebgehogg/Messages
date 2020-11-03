@@ -3,7 +3,7 @@
 namespace Messages.Client
 {
     [ProtoContract]
-    public sealed class SIgnInMessage: ClientMessage
+    public class SIgnInMessage: ClientMessage
     {
         [ProtoMember(1)]
         public string Login { get; set; }

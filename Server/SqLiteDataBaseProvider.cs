@@ -11,7 +11,7 @@ namespace Server
 {
     public sealed class SqLiteDataBaseProvider: IDatabaseProvider
     {
-        private string _connectionString = @"Data Source=C:\Users\hebgehogg\Desktop\db\Server.db";
+        private string _connectionString = @"Data Source=D:\Desktop\AeroSet\Education\DataBase\Server.db";
         private readonly SQLiteConnection _sqLiteConnection;
         private readonly SessionKeyManager _sessionKeyManager;
 
@@ -45,7 +45,7 @@ namespace Server
             return true;
         }
 
-        public HardwareConfig[] GetListOfConfig(string sessionKey, DateTimeOffset from, DateTimeOffset to)
+        public HardwareConfig[] GetListOfConfig(string sessionKey, DateTime from, DateTime to)
         {
             var cmd = _sqLiteConnection.CreateCommand();
             string userID = default;
@@ -98,7 +98,6 @@ namespace Server
                 cmd.CommandText = createUser;
                 cmd.ExecuteNonQuery();
             }
-            
         }
 
         public string SignIn(string login)

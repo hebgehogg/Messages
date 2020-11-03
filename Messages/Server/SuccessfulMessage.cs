@@ -3,7 +3,7 @@
 namespace Messages.Server
 {
     [ProtoContract]
-    public sealed class SuccessfulMessage: ServerMessage
+    public class SuccessfulMessage: ServerMessage
     {
     }
 }

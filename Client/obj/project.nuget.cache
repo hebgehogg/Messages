@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "AkBaJJ7PYXO/NFaGD5KhVE+sAO8SlFczXmijFCwYWJ54S4T4H15xyoCYh0La1Fr0JKVKNtBGoGdCA3V1BuRa8g==",
+  "dgSpecHash": "lgaW1owcdTciIwmPWltJf11eoEgUvmGyX98R4JmNXutoyJDlFsc7+jcSl5lubsvWCTQrXD8sCpm4/qbJgTpmzA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hebgehogg\\RiderProjects\\Messages\\Client\\Client.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\hebgehog\\RiderProjects\\Messages\\Client\\Client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hebgehog\\.nuget\\packages\\materialdesigncolors\\1.2.8-ci1990\\materialdesigncolors.1.2.8-ci1990.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\materialdesignthemes\\3.2.1-ci1990\\materialdesignthemes.3.2.1-ci1990.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\protobuf-net\\3.0.29\\protobuf-net.3.0.29.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\protobuf-net.core\\3.0.29\\protobuf-net.core.3.0.29.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.private.servicemodel\\4.7.0\\system.private.servicemodel.4.7.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.reflection.dispatchproxy\\4.5.0\\system.reflection.dispatchproxy.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.cryptography.pkcs\\4.5.0\\system.security.cryptography.pkcs.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.cryptography.xml\\4.5.0\\system.security.cryptography.xml.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
+    "C:\\Users\\hebgehog\\.nuget\\packages\\system.servicemodel.primitives\\4.7.0\\system.servicemodel.primitives.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

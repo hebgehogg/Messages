@@ -3,7 +3,7 @@
 namespace Messages
 {
     [ProtoContract]
-    public sealed class HardwareConfig
+    public class HardwareConfig
     {
         [ProtoMember(1)]
         public int CpuCoreCount { get; set; }
