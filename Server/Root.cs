@@ -89,11 +89,11 @@ namespace Server
                                 else
                                     returnMessage = new ErrorMessage();
                                 break;
-                            case SIgnInMessage signInMessage:
-                                Console.WriteLine(signInMessage.ToString() + DateTime.Now);
-                                var sessionKey =SqLiteDataBaseProvider.SignIn(signInMessage.Login);
+                            case LogInMessage logInMessage:
+                                Console.WriteLine(logInMessage.ToString() + DateTime.Now);
                                 try
                                 {
+                                    var sessionKey =SqLiteDataBaseProvider.LogIn(logInMessage.Login);
                                     returnMessage = new SessionKeyMessage() {SessionKey = sessionKey};
                                 }
                                 catch (NonExistExceptions)

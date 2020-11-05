@@ -11,7 +11,7 @@ namespace Server
 {
     public sealed class SqLiteDataBaseProvider: IDatabaseProvider
     {
-        private string _connectionString = @"Data Source=D:\Desktop\AeroSet\Education\DataBase\Server.db";
+        private string _connectionString = @"Data Source=D:/Desktop/AeroSet/Education/DataBase/Server.db";
         private readonly SQLiteConnection _sqLiteConnection;
         private readonly SessionKeyManager _sessionKeyManager;
 
@@ -87,11 +87,14 @@ namespace Server
             if (login == null) throw new ArgumentNullException(nameof(login));
 
             var cmd = _sqLiteConnection.CreateCommand();
-            var existUser = $"SELECT Login FROM Users WHERE Login = {login}";
+            var existUser = $"SELECT Login FROM Users WHERE Login = '{login}'";
             cmd.CommandText = existUser;
+            var test = cmd.ExecuteScalar();
 
-            if (cmd.ExecuteScalar()==login)
-                throw new ExistingUserException();
+            if ((string)test == login)
+            {
+                throw new ExistingUserException();   
+            }
             else
             {
                 var createUser = $"INSERT INTO Users VALUES(null,'{login}')";
@@ -100,17 +103,17 @@ namespace Server
             }
         }
 
-        public string SignIn(string login)
+        public string LogIn(string login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
             
             var cmd = _sqLiteConnection.CreateCommand();
-            var existUser = $"SELECT Login FROM Users WHERE Login = {login}";
+            var existUser = $"SELECT Login FROM Users WHERE Login = '{login}'";
             cmd.CommandText = existUser;
-            if (cmd.ExecuteScalar()==login)
+            if ((string)cmd.ExecuteScalar()==login)
                 return _sessionKeyManager.GenerateKey(login);
             else
-                throw new InvalidOperationException();
+                throw new NonExistExceptions();
         }
 
         public bool LogOut(string sessionKey)

@@ -31,12 +31,9 @@ namespace Client.Services
             return deSerializedData;
         }
         
-        public async Task<bool> RegisterAsync([NotNull] string login, CancellationToken token = default)
+        private async Task<Message> GetDataAsync(string login, Message message, CancellationToken token = default)
         {
-            if (login == null) throw new ArgumentNullException(nameof(login));
             var server = "127.0.0.1";
-
-            var message = new RegistrationMessage() {Login = login};
             var socet =new TcpClient( $"{server}",33333 );
             var networkStream = socet.GetStream();
             await networkStream.WriteAsync(GetCompressMessage(message),token).ConfigureAwait(false);
@@ -45,14 +42,22 @@ namespace Client.Services
             {
                 await Task.Delay(1);
             }
-
+            
             var buffer = new byte[1024];
             var result = await networkStream.ReadAsync(buffer, 0, buffer.Length);
             var counter = buffer.Take(result).ToArray();
             
-            var deCompressData = ByteCompressor.DeCompress(counter);
-            var deSerializedData = Serializer.DeSerialize(deCompressData);
+            var deSerializedData = GetDeSerializedData(counter);
             
+            return deSerializedData;
+        }
+        
+        public async Task<bool> RegisterAsync([NotNull] string login, CancellationToken token = default)
+        {
+            if (login == null) throw new ArgumentNullException(nameof(login));
+            var message = new RegistrationMessage() {Login = login};
+            var deSerializedData = await GetDataAsync(login,message, token);
+
             switch (deSerializedData)
             {
                 case ErrorMessage errorMessage:
@@ -66,10 +71,23 @@ namespace Client.Services
             }
         }
 
-        private void LogIn([NotNull] string login)
+        public async Task<bool> LogInAsync([NotNull] string login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
+            var message = new LogInMessage() {Login = login};
+            var deSerializedData = await GetDataAsync(login,message);
             
+            switch (deSerializedData)//error
+            {
+                case ErrorMessage errorMessage:
+                    MessageBox.Show(errorMessage.Error);
+                    return false;
+                case SessionKeyMessage sessionKeyMessage:
+                    MessageBox.Show(sessionKeyMessage.ToString());
+                    return true;
+                default:
+                    throw new Exception();//this
+            }
         }
         
         private void LogOut()

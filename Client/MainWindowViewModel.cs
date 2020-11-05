@@ -15,6 +15,7 @@ namespace Client
     {
         [NotNull] private readonly ServerApiService _serverApiService;
         private bool _isLogIn;
+        private string mainLogin=null;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand LogInCommand { get;}
@@ -35,10 +36,8 @@ namespace Client
         { 
             _serverApiService = serverApiService ?? throw new ArgumentNullException(nameof(serverApiService));
             
-            
-            
-            SignInCommand = new DelegateCommand(SignIn);
-            LogInCommand = new DelegateCommand(LogIn);
+            SignInCommand = new DelegateCommand(RegistrationInAsync);
+            LogInCommand = new DelegateCommand(LogInAsync);
             LogOutCommand = new DelegateCommand(LogOut);
         }
 
@@ -48,24 +47,30 @@ namespace Client
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private async void SignIn(object parameter)
+        private async void RegistrationInAsync(object parameter)
         {
             var loginDialog = new InputLoginDialogWindow();
-            loginDialog.Close += SignInClose;
-            await DialogHost.Show( loginDialog);
+            loginDialog.Close += RegistrationInClose;
+            await DialogHost.Show(loginDialog);
+            
+            loginDialog.Close -= RegistrationInClose;
+            
+            if (string.IsNullOrWhiteSpace(mainLogin))
+                return;
+            await _serverApiService.RegisterAsync(mainLogin);
         }
 
-        private async void SignInClose(object sender, string login)
+        private async void LogInAsync(object parameter)
         {
-            DialogHost.CloseDialogCommand.Execute(null,null);
-            var loginDialog = (InputLoginDialogWindow) sender;
-            loginDialog.Close -= SignInClose;
-            await _serverApiService.RegisterAsync(login);
-        }
-        
-        private void LogIn(object parameter)
-        {
-
+            var loginDialog = new InputLoginDialogWindow();
+            loginDialog.Close += LogInClose;
+            await DialogHost.Show(loginDialog);
+            
+            loginDialog.Close -= LogInClose;
+            
+            if (string.IsNullOrWhiteSpace(mainLogin))
+                return;
+            await _serverApiService.LogInAsync(mainLogin);
         }
         
         private void LogOut(object parameter)
@@ -73,9 +78,20 @@ namespace Client
         
         }
         
-        private async void GetLoginAsync(string login)
+        private async void RegistrationInClose(object sender, [NotNull] string login)
         {
-            
+            DialogHost.CloseDialogCommand.Execute(null,null);
+            var loginDialog = (InputLoginDialogWindow) sender;
+            loginDialog.Close -= RegistrationInClose;
+            mainLogin = login;
+        }
+        
+        private async void LogInClose(object sender, [NotNull] string login)
+        {
+            DialogHost.CloseDialogCommand.Execute(null,null);
+            var loginDialog = (InputLoginDialogWindow) sender;
+            loginDialog.Close -= LogInClose;
+            mainLogin = login;
         }
     }
 }

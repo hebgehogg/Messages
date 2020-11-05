@@ -16,6 +16,7 @@ namespace Utils
 
         public SessionKeyManager()
         {
+            _sessionKeys = new List<Tuple<string, string, DateTime>>();
             SetTimer();
         }
 

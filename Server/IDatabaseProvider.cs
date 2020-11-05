@@ -11,7 +11,7 @@ namespace Server
         
         public void Registration(string login);
         
-        public string SignIn(string login);
+        public string LogIn(string login);
 
         public bool LogOut(string sessionKey);
         
