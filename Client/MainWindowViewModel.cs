@@ -16,6 +16,7 @@ namespace Client
         [NotNull] private readonly ServerApiService _serverApiService;
         private bool _isLogIn;
         private string mainLogin=null;
+        private string key=null;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand LogInCommand { get;}
@@ -38,7 +39,7 @@ namespace Client
             
             SignInCommand = new DelegateCommand(RegistrationInAsync);
             LogInCommand = new DelegateCommand(LogInAsync);
-            LogOutCommand = new DelegateCommand(LogOut);
+            LogOutCommand = new DelegateCommand(LogOutAsync);
         }
 
         [NotifyPropertyChangedInvocator]
@@ -70,12 +71,17 @@ namespace Client
             
             if (string.IsNullOrWhiteSpace(mainLogin))
                 return;
-            await _serverApiService.LogInAsync(mainLogin);
+            var result  = await _serverApiService.LogInAsync(mainLogin);
+            key = result.key;
+            
+            IsLogIn = true;
         }
         
-        private void LogOut(object parameter)
+        private async void LogOutAsync(object parameter)
         {
-        
+            if (string.IsNullOrWhiteSpace(mainLogin))
+                return;
+            await _serverApiService.LogOutAsync(mainLogin, key);
         }
         
         private async void RegistrationInClose(object sender, [NotNull] string login)

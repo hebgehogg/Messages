@@ -44,7 +44,7 @@
                         Height="40"
                         Width="40"
                         Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=Login}"
+                        Content="{materialDesign:PackIcon Kind=Account}"
                         Style="{DynamicResource MaterialDesignFloatingActionButton}"
                         Command="{Binding LogInCommand, Mode=OneWay}" 
                         Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
@@ -54,8 +54,7 @@
                         Margin="5,0,0,0"
                         Content="{materialDesign:PackIcon Kind=Register}"
                         Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding SignInCommand, Mode=OneWay}" 
-                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
+                        Command="{Binding SignInCommand, Mode=OneWay}" />
             </StackPanel>
         </Grid>
     </materialDesign:DialogHost >

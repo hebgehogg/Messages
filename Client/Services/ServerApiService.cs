@@ -71,28 +71,60 @@ namespace Client.Services
             }
         }
 
-        public async Task<bool> LogInAsync([NotNull] string login)
+        public async Task<(bool result, string key)> LogInAsync([NotNull] string login)
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
             var message = new LogInMessage() {Login = login};
             var deSerializedData = await GetDataAsync(login,message);
             
-            switch (deSerializedData)//error
+            switch (deSerializedData)
+            {
+                case ErrorMessage errorMessage:
+                    MessageBox.Show(errorMessage.Error);
+                    return (false, null);
+                case SessionKeyMessage sessionKeyMessage:
+                    MessageBox.Show(sessionKeyMessage.ToString());
+                    return (true, sessionKeyMessage.SessionKey);
+                default:
+                    throw new Exception();
+            }
+        }
+        
+        public async Task<bool>  LogOutAsync(string key, string login)
+                     {
+                         var message = new LogOutMessage() {SessionKey = key, Login = login};
+                         var deSerializedData = await GetDataAsync(login,message);
+                         
+                         switch (deSerializedData)
+                         {
+                             case ErrorMessage errorMessage:
+                                 MessageBox.Show(errorMessage.Error);
+                                 return false;
+                             case SuccessfulMessage successfulMessage:
+                                 MessageBox.Show(successfulMessage.ToString());
+                                 return true;
+                             default:
+                                 throw new Exception();
+                         }
+        }
+        
+        public async Task<bool>  SaveConfigAsync(string key, HardwareConfig config)
+        {
+            /*var message = new LogOutMessage() {SessionKey = key, Login = login};
+            var deSerializedData = await GetDataAsync(login,message);
+                         
+            switch (deSerializedData)
             {
                 case ErrorMessage errorMessage:
                     MessageBox.Show(errorMessage.Error);
                     return false;
-                case SessionKeyMessage sessionKeyMessage:
-                    MessageBox.Show(sessionKeyMessage.ToString());
+                case SuccessfulMessage successfulMessage:
+                    MessageBox.Show(successfulMessage.ToString());
                     return true;
                 default:
-                    throw new Exception();//this
-            }
-        }
-        
-        private void LogOut()
-        {
-            
+                    throw new Exception();
+            }*/
+            throw new Exception();
         }
         
         public static Task<int> SendTaskAsync(Socket socket, byte[] buffer, int offset, int size, SocketFlags flags)
