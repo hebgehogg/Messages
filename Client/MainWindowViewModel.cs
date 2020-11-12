@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Client.Annotations;
 using Client.Services;
 using MaterialDesignThemes.Wpf;
+using Messages;
 
 namespace Client
 {
@@ -22,6 +23,8 @@ namespace Client
         public ICommand LogInCommand { get;}
         public ICommand SignInCommand { get;}
         public ICommand LogOutCommand { get;}
+        public ICommand SaveConfigCommand { get;}
+        public ICommand GetConfigByPeriodCommand { get;}
 
         public bool IsLogIn
         {
@@ -40,6 +43,8 @@ namespace Client
             SignInCommand = new DelegateCommand(RegistrationInAsync);
             LogInCommand = new DelegateCommand(LogInAsync);
             LogOutCommand = new DelegateCommand(LogOutAsync);
+            SaveConfigCommand = new DelegateCommand(SaveConfigAsync); 
+            GetConfigByPeriodCommand = new DelegateCommand(GetConfigByPeriodAsync); 
         }
 
         [NotifyPropertyChangedInvocator]
@@ -78,6 +83,20 @@ namespace Client
         }
         
         private async void LogOutAsync(object parameter)
+        {
+            if (string.IsNullOrWhiteSpace(mainLogin))
+                return;
+            await _serverApiService.LogOutAsync(mainLogin, key);
+        }
+        
+        private async void SaveConfigAsync(object parameter)
+        {
+            if (string.IsNullOrWhiteSpace(mainLogin))
+                return;
+            await _serverApiService.SaveConfigAsync(key);
+        }
+        
+        private async void GetConfigByPeriodAsync(object parameter)
         {
             if (string.IsNullOrWhiteSpace(mainLogin))
                 return;

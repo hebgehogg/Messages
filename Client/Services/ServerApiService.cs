@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -31,7 +33,7 @@ namespace Client.Services
             return deSerializedData;
         }
         
-        private async Task<Message> GetDataAsync(string login, Message message, CancellationToken token = default)
+        private async Task<Message> GetDataAsync(Message message, CancellationToken token = default)
         {
             var server = "127.0.0.1";
             var socet =new TcpClient( $"{server}",33333 );
@@ -42,13 +44,13 @@ namespace Client.Services
             {
                 await Task.Delay(1);
             }
-            
+        
             var buffer = new byte[1024];
             var result = await networkStream.ReadAsync(buffer, 0, buffer.Length);
             var counter = buffer.Take(result).ToArray();
-            
+        
             var deSerializedData = GetDeSerializedData(counter);
-            
+        
             return deSerializedData;
         }
         
@@ -56,7 +58,7 @@ namespace Client.Services
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
             var message = new RegistrationMessage() {Login = login};
-            var deSerializedData = await GetDataAsync(login,message, token);
+            var deSerializedData = await GetDataAsync(message, token);
 
             switch (deSerializedData)
             {
@@ -75,7 +77,7 @@ namespace Client.Services
         {
             if (login == null) throw new ArgumentNullException(nameof(login));
             var message = new LogInMessage() {Login = login};
-            var deSerializedData = await GetDataAsync(login,message);
+            var deSerializedData = await GetDataAsync(message);
             
             switch (deSerializedData)
             {
@@ -90,28 +92,36 @@ namespace Client.Services
             }
         }
         
-        public async Task<bool>  LogOutAsync(string key, string login)
-                     {
-                         var message = new LogOutMessage() {SessionKey = key, Login = login};
-                         var deSerializedData = await GetDataAsync(login,message);
-                         
-                         switch (deSerializedData)
-                         {
-                             case ErrorMessage errorMessage:
-                                 MessageBox.Show(errorMessage.Error);
-                                 return false;
-                             case SuccessfulMessage successfulMessage:
-                                 MessageBox.Show(successfulMessage.ToString());
-                                 return true;
-                             default:
-                                 throw new Exception();
-                         }
+        public async Task<bool>  LogOutAsync(string key, string login){
+             var message = new LogOutMessage() {SessionKey = key, Login = login};
+             var deSerializedData = await GetDataAsync(message);
+             
+             switch (deSerializedData)
+             {
+                 case ErrorMessage errorMessage:
+                     MessageBox.Show(errorMessage.Error);
+                     return false;
+                 case SuccessfulMessage successfulMessage:
+                     MessageBox.Show(successfulMessage.ToString());
+                     return true;
+                 default:
+                     throw new Exception();
+             }
         }
         
-        public async Task<bool>  SaveConfigAsync(string key, HardwareConfig config)
+        public async Task<bool>  SaveConfigAsync(string key)
         {
-            /*var message = new LogOutMessage() {SessionKey = key, Login = login};
-            var deSerializedData = await GetDataAsync(login,message);
+            var configs = new HardwareConfig
+            {
+                CpuCoreCount = Environment.ProcessorCount,
+                ClockFrequency = Process.GetCurrentProcess().TotalProcessorTime.TotalSeconds,
+                RandomAccessMemory = (int)Process.GetCurrentProcess().WorkingSet64/1024,
+                DiskSpace = DriveInfo.GetDrives().Select(o => o.TotalFreeSpace).Sum()
+            };
+            
+            var message = new SaveConfigMessage(){SessionKey = key, Config = configs};
+
+            var deSerializedData = await GetDataAsync(message);
                          
             switch (deSerializedData)
             {
@@ -123,8 +133,7 @@ namespace Client.Services
                     return true;
                 default:
                     throw new Exception();
-            }*/
-            throw new Exception();
+            }
         }
         
         public static Task<int> SendTaskAsync(Socket socket, byte[] buffer, int offset, int size, SocketFlags flags)

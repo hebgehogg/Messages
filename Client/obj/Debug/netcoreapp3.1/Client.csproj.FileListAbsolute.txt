@@ -58,3 +58,5 @@ C:\Users\hebgehog\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Utils.pd
 C:\Users\hebgehog\RiderProjects\Messages\Client\bin\Debug\netcoreapp3.1\Messages.pdb
 C:\Users\hebgehog\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\InputLoginDialogWindow.g.cs
 C:\Users\hebgehog\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\InputLoginDialogWindow.baml
+C:\Users\hebgehog\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\ControlConfigByPeriod.g.cs
+C:\Users\hebgehog\RiderProjects\Messages\Client\obj\Debug\netcoreapp3.1\ControlConfigByPeriod.baml

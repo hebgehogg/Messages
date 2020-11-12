@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 using System.Runtime.Intrinsics.X86;
 using Messages;
 using Messages.Server;
@@ -27,22 +28,39 @@ namespace Server
         public bool SaveConfig(string sessionKey, HardwareConfig config)
         {
             var cmd = _sqLiteConnection.CreateCommand();
-            string userID = default;
+            int userID = default;
             try
             {
-                userID = $"SELECT UserID FROM Users WHERE login = '{_sessionKeyManager.GetLoginBySessionKey(sessionKey)}'";
-                cmd.CommandText = userID;
-                cmd.ExecuteNonQuery();
+                var getLogin =
+                    $"SELECT UserID FROM Users WHERE login = '{_sessionKeyManager.GetLoginBySessionKey(sessionKey)}'";
+                cmd.CommandText = getLogin;
+                var result = cmd.ExecuteScalar();
+                if (result is null)
+                    return false;   
+                userID = (int)(long) result;
+
             }
             catch (InvalidOperationException)
             {
                 return false;
             }
             
-            var existUser = $"INSERT INTO Configs VALUES(null,'{config.CpuCoreCount}', '{config.ClockFrequency}', '{config.RandomAccessMemory}','{config.DiskSpace}, '{userID}', '{DateTime.Now}')";
-            cmd.CommandText = existUser;
-            cmd.ExecuteNonQuery();
-            return true;
+            try
+            {
+                var newConfigs = $"INSERT INTO Configs VALUES(null,{config.CpuCoreCount}, " +
+                                 $"{config.ClockFrequency.ToString(CultureInfo.InvariantCulture)}, " +
+                                 $"{config.RandomAccessMemory.ToString(CultureInfo.InvariantCulture)}," +
+                                 $"{config.DiskSpace.ToString(CultureInfo.InvariantCulture)}, " +
+                                 $"{userID}, " +
+                                 $"'{DateTime.Now}')";
+                cmd.CommandText = newConfigs;
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
         }
 
         public HardwareConfig[] GetListOfConfig(string sessionKey, DateTime from, DateTime to)

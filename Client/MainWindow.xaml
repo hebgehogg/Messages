@@ -55,6 +55,22 @@
                         Content="{materialDesign:PackIcon Kind=Register}"
                         Style="{DynamicResource MaterialDesignFloatingActionButton}"
                         Command="{Binding SignInCommand, Mode=OneWay}" />
+                <Button x:Name="SaveConfigs"
+                        Height="40"
+                        Width="40"
+                        Margin="5,0,0,0"
+                        Content="{materialDesign:PackIcon Kind=ContentSave}"
+                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding SaveConfigCommand, Mode=OneWay}" 
+                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
+                <Button x:Name="GetConfigsByPeriod"
+                        Height="40"
+                        Width="40"
+                        Margin="5,0,0,0"
+                        Content="{materialDesign:PackIcon Kind=GetApp}"
+                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                        Command="{Binding GetConfigByPeriodCommand, Mode=OneWay}" 
+                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
             </StackPanel>
         </Grid>
     </materialDesign:DialogHost >
