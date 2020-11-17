@@ -52,7 +52,7 @@ namespace Server
                                  $"{config.RandomAccessMemory.ToString(CultureInfo.InvariantCulture)}," +
                                  $"{config.DiskSpace.ToString(CultureInfo.InvariantCulture)}, " +
                                  $"{userID}, " +
-                                 $"'{DateTime.Now}')";
+                                 $"'{ConvertFormatData(DateTime.Now)}')";
                 cmd.CommandText = newConfigs;
                 cmd.ExecuteNonQuery();
                 return true;
@@ -77,7 +77,7 @@ namespace Server
             {
                 return null;
             }
-            var getHardwareConfigs = $"SELECT CpuCoreCont, ClockFrequency, RandomAccessMemory, DiskSpace FROM Configs WHERE ConfigData BETWEEN '{from}' AND '{to}'";
+            var getHardwareConfigs = $"SELECT CpuCoreCount, ClockFrequency, RandomAccessMemory, DiskSpace FROM Configs WHERE ConfigData BETWEEN '{ConvertFormatData(from)}' AND '{ConvertFormatData(to)}'";
             cmd.CommandText = getHardwareConfigs;
             
             var listOfConfigs = new List<HardwareConfig>();
@@ -89,7 +89,7 @@ namespace Server
                     var hardwareConfigs = new HardwareConfig()
                     {
                         CpuCoreCount = reader.GetInt32(reader.GetOrdinal("CpuCoreCount")),
-                        ClockFrequency = reader.GetInt32(reader.GetOrdinal("ClockFrequency")),
+                        ClockFrequency = reader.GetDouble(reader.GetOrdinal("ClockFrequency")),
                         RandomAccessMemory = reader.GetDouble(reader.GetOrdinal("RandomAccessMemory")),
                         DiskSpace = reader.GetDouble(reader.GetOrdinal("DiskSpace")),
                     };
@@ -98,6 +98,12 @@ namespace Server
             }
 
             return listOfConfigs.ToArray();
+        }
+
+        private string ConvertFormatData(DateTime dateTime)
+        {
+            var convertData = dateTime.ToString("yyyy-MM-dd hh:mm:ss");
+            return convertData;
         }
 
         public void Registration(string login)

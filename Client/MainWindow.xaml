@@ -28,50 +28,59 @@
         Identifier="1">
         <Grid Background="Linen"
               HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal"
-                        Height="50"
-                        Background="Orchid"
-                        VerticalAlignment="Top">
-                <Button x:Name="LogOut"
-                        Height="40"
-                        Width="40"
-                        Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=Logout}"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding LogOutCommand, Mode=OneWay}" 
-                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
-                <Button x:Name="LogIn"
-                        Height="40"
-                        Width="40"
-                        Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=Account}"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding LogInCommand, Mode=OneWay}" 
-                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
-                <Button x:Name="SignIn"
-                        Height="40"
-                        Width="40"
-                        Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=Register}"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding SignInCommand, Mode=OneWay}" />
-                <Button x:Name="SaveConfigs"
-                        Height="40"
-                        Width="40"
-                        Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=ContentSave}"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding SaveConfigCommand, Mode=OneWay}" 
-                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
-                <Button x:Name="GetConfigsByPeriod"
-                        Height="40"
-                        Width="40"
-                        Margin="5,0,0,0"
-                        Content="{materialDesign:PackIcon Kind=GetApp}"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                        Command="{Binding GetConfigByPeriodCommand, Mode=OneWay}" 
-                        Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
+                <Grid.RowDefinitions>
+                        <RowDefinition  Height="50"/>
+                        <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            Height="50"
+                            Background="Orchid"
+                            VerticalAlignment="Top" Grid.Row="0">
+                        <Button x:Name="LogOut"
+                                Height="40"
+                                Width="40"
+                                Margin="5,0,0,0"
+                                Content="{materialDesign:PackIcon Kind=Logout}"
+                                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                Command="{Binding LogOutCommand, Mode=OneWay}" 
+                                Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
+                        <Button x:Name="LogIn"
+                                Height="40"
+                                Width="40"
+                                Margin="5,0,0,0"
+                                Content="{materialDesign:PackIcon Kind=Account}"
+                                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                Command="{Binding LogInCommand, Mode=OneWay}" 
+                                Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource InverseBoolToVisibilityConverter }}"/>
+                        <Button x:Name="SignIn"
+                                Height="40"
+                                Width="40"
+                                Margin="5,0,0,0"
+                                Content="{materialDesign:PackIcon Kind=Register}"
+                                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                Command="{Binding SignInCommand, Mode=OneWay}" />
+                        <Button x:Name="SaveConfigs"
+                                Height="40"
+                                Width="40"
+                                Margin="5,0,0,0"
+                                Content="{materialDesign:PackIcon Kind=ContentSave}"
+                                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                Command="{Binding SaveConfigCommand, Mode=OneWay}" 
+                                Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
+                        <Button x:Name="GetConfigsByPeriod"
+                                Height="40"
+                                Width="40"
+                                Margin="5,0,0,0"
+                                Content="{materialDesign:PackIcon Kind=GetApp}"
+                                Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                                Command="{Binding GetConfigByPeriodCommand, Mode=OneWay}" 
+                                Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
             </StackPanel>
+            <client:ControlConfigByPeriod Grid.Row="1" VerticalAlignment="Top"
+                                          From = "{Binding DateFrom, Mode=TwoWay}"
+                                          To = "{Binding DateTo, Mode=TwoWay}"
+                                          Item = "{Binding DataGridDate, Mode=TwoWay}"
+                                          Visibility="{Binding IsLogIn, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter }}"/>
         </Grid>
     </materialDesign:DialogHost >
 </Window>

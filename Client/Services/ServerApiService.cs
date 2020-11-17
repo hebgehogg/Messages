@@ -136,6 +136,25 @@ namespace Client.Services
             }
         }
         
+        public async Task<(bool,HardwareConfig[])>  GetListOfConfigByPeriodAsync(string key, DateTime from, DateTime to)
+        {
+            var message = new GetListOfConfigByPeriodMessage(){SessionKey = key, From = from, To = to};
+
+            var deSerializedData = await GetDataAsync(message);
+                         
+            switch (deSerializedData)
+            {
+                case ErrorMessage errorMessage:
+                    MessageBox.Show(errorMessage.Error);
+                    return (false, null);
+                case ConfigListMessage configListMessage:
+                    MessageBox.Show(configListMessage.ToString());
+                    return (true, configListMessage.Configs);
+                default:
+                    throw new Exception();
+            }
+        }
+        
         public static Task<int> SendTaskAsync(Socket socket, byte[] buffer, int offset, int size, SocketFlags flags)
         {
             AsyncCallback nullOp = (i) => {};

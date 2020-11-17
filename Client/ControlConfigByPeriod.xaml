@@ -6,26 +6,28 @@
              xmlns:local="clr-namespace:Client"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="300">
-    <Grid>
+             d:DesignWidth="300"
+             x:Name="Root">
+    <Grid HorizontalAlignment="Left">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="300"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label>from: </Label>
-            <Label>to: </Label>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <TextBox x:Name="FromTextBox"></TextBox>
-            <TextBox x:Name="ToTextBox"></TextBox>
-        </StackPanel>
-        <DataGrid Grid.Row="2" Grid.Column="1">
-        </DataGrid>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Label Grid.Row="0" Grid.Column="0" FontSize = "20" FontWeight="Bold">from: </Label>
+                <DatePicker x:Name = "FromDate" Margin=" 5 0 10 0" 
+                            SelectedDate="{Binding ElementName=Root, Path=From, Mode=TwoWay}">
+                </DatePicker>
+                
+                <Label Grid.Row="1" Grid.Column="0" FontSize = "20" FontWeight="Bold">to: </Label>
+                <DatePicker x:Name = "ToDate" Margin=" 5 0 10 0"
+                            SelectedDate="{Binding ElementName=Root, Path=To, Mode=TwoWay}">
+                </DatePicker>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid x:Name = "DataGridDate" Width="700" AutoGenerateColumns="True" ItemsSource="{Binding ElementName= Root, Path=Item}"/>
+        </Grid>
     </Grid>
 </UserControl>
